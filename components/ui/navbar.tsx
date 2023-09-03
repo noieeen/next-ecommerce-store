@@ -3,6 +3,7 @@ import Container from "./container";
 import MainNav from "./main-nav";
 
 const Navbar = () => {
+  const categories = [];
   return (
     <div className="border-b">
       <Container>
@@ -10,7 +11,7 @@ const Navbar = () => {
           <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
             <p className="font-bold text-xl">STORE</p>
           </Link>
-          <MainNav />
+          <MainNav data={categories} />
         </div>
       </Container>
     </div>
