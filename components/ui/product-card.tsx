@@ -2,7 +2,7 @@
 
 import { Product } from "@/types";
 import Image from "next/image";
-import IconButton from "./ui/icon-button";
+import IconButton from "./icon-button";
 import { Expand, ShoppingCart } from "lucide-react";
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
