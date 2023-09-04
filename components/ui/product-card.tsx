@@ -7,14 +7,16 @@ import { Expand, ShoppingCart } from "lucide-react";
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import Currency from "@/components/ui/currency";
+import usePreviewModal from "@/hooks/use-preview-modal";
+import useCart from "@/hooks/use-cart";
 
 interface ProductCardProps {
   data: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
-  //   const previewModal = usePreviewModal();
-  //   const cart = useCart();
+  const previewModal = usePreviewModal();
+  const cart = useCart();
   const router = useRouter();
 
   const handleClick = () => {
@@ -24,17 +26,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
 
-    // previewModal.onOpen(data);
+    previewModal.onOpen(data);
   };
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
 
-    // cart.addItem(data);
+    cart.addItem(data);
   };
 
   return (
-    <div onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+    <div
+      onClick={handleClick}
+      className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4"
+    >
       {/* images and actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image

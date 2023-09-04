@@ -5,6 +5,8 @@ import { ShoppingCart } from "lucide-react";
 import Currency from "@/components/ui/currency";
 import Button from "@/components/ui/button";
 import { Product } from "@/types";
+import { useEffect, useState } from "react";
+import useCart from "@/hooks/use-cart";
 // import useCart from "@/hooks/use-cart";
 
 interface InfoProps {
@@ -12,19 +14,29 @@ interface InfoProps {
 }
 
 const Info: React.FC<InfoProps> = ({ data }) => {
-  //   const cart = useCart();
+    const cart = useCart();
 
   const onAddToCart = () => {
-    // cart.addItem(data);
+    cart.addItem(data);
   };
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
+      <h1 className="text-3xl font-bold text-gray-900">{data?.name}</h1>
       <div className="mt-3 flex items-end justify-between">
-        <p className="text-2xl text-gray-900">
-          <Currency value={data?.price} />
-        </p>
+        <div className="text-2xl text-gray-900">
+          {<Currency value={data ? data.price : 0} />}
+        </div>
       </div>
       <hr className="my-4" />
       <div className="flex flex-col gap-y-6">
@@ -36,10 +48,10 @@ const Info: React.FC<InfoProps> = ({ data }) => {
           <h3 className="font-semibold text-black">Color:</h3>
           <div className="flex items-center">
             <div
-              className="mr-2 h-6 w-6 rounded-full border border"
+              className="mr-2 h-6 w-6 rounded-full border"
               style={{ backgroundColor: data?.color?.value }}
             />
-            <p className="text-sm">{data.color.name}</p>
+            <p className="text-sm">{data?.color?.name}</p>
           </div>
         </div>
       </div>
