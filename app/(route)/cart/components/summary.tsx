@@ -8,11 +8,14 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
+import { useOrigin } from "@/hooks/use-origin";
 
 const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
+
+  const origin = useOrigin();
 
   useEffect(() => {
     if (searchParams.get("success")) {
@@ -33,6 +36,7 @@ const Summary = () => {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       {
+        redirectURL: origin,
         productIds: items.map((item) => item.id),
       }
     );
